@@ -1,0 +1,256 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-family: 'Impact', sans-serif;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+            color: black;
+        }
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .home-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            font-size: 15px;
+        }
+        
+        .home-link:hover{
+            color: cadetblue;
+        }
+        
+        .logout-btn {
+            background-color: #000;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .logout-btn:hover {
+        transform: scale(1.06);
+        }
+
+        .welcome-section {
+            margin-bottom: 40px;
+        }
+        
+        .welcome-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .balance-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .balance-text {
+            font-size: 18px;
+            margin-left: 400px;
+        }
+        
+        .card-container {
+            flex: 0 0 220px;
+            position: relative;
+        }
+        
+        .card {
+            width: 220px;
+            height: 140px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 15px;
+            position: relative;
+            background-color: #fff;
+        }
+        
+        .card-chip {
+            width: 40px;
+            height: 30px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 25px;
+        }
+        
+        .card-line {
+            width: 180px;
+            height: 1px;
+            background-color: #ccc;
+            margin: 15px 0;
+        }
+        
+        .card-amount {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .card-stripe {
+            position: absolute;
+            top: 80px;
+            right: 15px;
+            width: 60px;
+            height: 30px;
+            border: 1px solid #ccc;
+        }
+        
+        .recharge-btn {
+            display: block;
+            width: 100%;
+            background-color: cadetblue;
+            color: #fff;
+            padding: 12px;
+            text-align: center;
+            border-radius: 4px;
+            text-decoration: none;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+       .recharge-btn:hover {
+        transform: scale(1.06);
+        }        
+        
+        .history-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .history-card {
+            flex: 0 0 48%;
+            position: relative;
+            background-color: #f0f0f0;
+            padding-bottom: 60px;
+        }
+        
+        .history-img {
+            width: 100%;
+            height: 130px;
+            background-color: #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .history-icon {
+            width: 80px;
+            height: 60px;
+        }
+        
+        .history-title {
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .history-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background-color: #f5f5f5;
+            color: cadetblue;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+       .history-btn:hover {
+        transform: scale(1.06);
+        }        
+        
+        .payments-card {
+            background-color: #f0f0f0;
+        }
+        
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .footer-logo {
+            font-family: 'Impact', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+       
+        
+        .social-text {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .social-icon {
+             width: 24px;
+            height: 24px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .copyright {
+            color: #999;
+            font-size: 12px;
+        }
+        
+        @media (max-width: 768px) {
+            .balance-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .card-container {
+                margin-top: 20px;
+                align-self: center;
+            }
+            
+            .history-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }

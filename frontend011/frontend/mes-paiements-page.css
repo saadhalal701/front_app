@@ -1,0 +1,213 @@
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+     .logo {
+            font-family: 'Impact', sans-serif;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+            color: black;
+        }
+        
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .nav-button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+         .nav-button:hover{
+            color: cadetblue;
+
+        }
+        
+        .circle-icon img{
+            width: 20px;           
+            height: 20px; 
+            vertical-align: middle;  
+            margin-right: 5px; 
+        }
+
+        .logout-btn {
+            background-color: black;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover{
+            transform: scale(1.06);
+
+        }
+        
+        /* Main content styles */
+        main {
+            padding: 20px;
+        }
+        
+        .transactions-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        /* Table styles */    
+        
+    .table-data {
+        width: 100%;
+        overflow: hidden;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    
+    .order {
+        padding: 20px;
+    }
+    
+    .head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    .head h3 {
+        font-size: 1.4rem;
+        color: #2c3e50;
+        font-weight: 600;
+    }
+    
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    thead th {
+        padding: 15px 12px;
+        text-align: left;
+        background-color: #f8f9fa;
+        color: #495057;
+        font-weight: 600;
+        border-bottom: 2px solid #e9ecef;
+    }
+    
+    tbody td {
+        padding: 14px 12px;
+        border-bottom: 1px solid #e9ecef;
+        color: #495057;
+        vertical-align: middle;
+    }
+    
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+    
+    tbody tr:hover {
+        background-color: #f8f9fa;
+    }
+    
+    .status {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+    
+    .completed {
+        background-color: #e3f7e8;
+        color: #28a745;
+    }
+    
+    .vehicle-img {
+        width: 50px;
+        height: 30px;
+        object-fit: cover;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    @media (max-width: 768px) {
+        .head h3 {
+            font-size: 1.2rem;
+        }
+        
+        thead th, tbody td {
+            padding: 10px 8px;
+            font-size: 0.9rem;
+        }
+        
+        .vehicle-img {
+            width: 40px;
+            height: 25px;
+        }
+    }
+        
+        /* Footer styles */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            background-color: white;
+            border-top: 1px solid #ddd;
+        }
+        .logoend {
+           font-family: 'Impact', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .copyright {
+            font-size: 12px;
+        }

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="dashboard-utilisateurs.css">
+
+    <title>AutoPeage - Dashboard Utilisateurs</title>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <span class="text">AutoPeage</span>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="admin-page.html">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Tableau de bord</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboard-historique.html">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text">Historique</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="dashboard-utilisateurs.html">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">Utilisateurs</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboard-stations.html">
+                    <i class='bx bxs-car'></i>
+                    <span class="text">Stations</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboard-cameras.html">
+                    <i class='bx bxs-camera'></i>
+                    <span class="text">Cameras</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="connexion-page.html" class="logout">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <header>
+                <a href="landing-page.html" class="nav-link">Home</a>
+                <button class="btn-deconnexion" onclick="window.location.href='connexion-page.html'">Deconnexion</button>
+            </header>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Utilisateurs</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Gérer les utilisateurs</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="box-info">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Rechercher par nom de station...">
+                    <button type="button" id="searchButton">
+                        <i class='bx bx-search'></i>
+                        <span>Rechercher</span>
+                    </button>
+                    <button type="button" id="resetSearch" style="display:none; margin-left: 10px;">
+                        <i class='bx bx-x'></i>
+                        <span>Réinitialiser</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Liste des utilisateurs</h3>
+                    </div>
+                    <table id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>ID utilisateur</th>
+                                <th>Date Inscription</th>
+                                <th>Nom</th>
+                                <th>Solde</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>124</td>
+                                <td>01-09-2021</td>
+                                <td>
+                                    <p>Mohamed Idrissi</p>
+                                </td>
+                                <td>500 DHS</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <span class="status-badge active">Actif</span>
+                                        <button class="btn-action btn-block" title="Bloquer l'utilisateur">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>124</td>
+                                <td>01-09-2021</td>
+                                <td>
+                                    <p>Mohamed Idrissi</p>
+                                </td>
+                                <td>500 DHS</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <span class="status-badge inactive">Bloqué</span>
+                                        <button class="btn-action btn-unblock" title="Débloquer l'utilisateur">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>124</td>
+                                <td>01-09-2021</td>
+                                <td>
+                                    <p>Mohamed Idrissi</p>
+                                </td>
+                                <td>500 DHS</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <span class="status-badge active">Actif</span>
+                                        <button class="btn-action btn-block" title="Bloquer l'utilisateur">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>124</td>
+                                <td>01-09-2021</td>
+                                <td>
+                                    <p>Mohamed Idrissi</p>
+                                </td>
+                                <td>500 DHS</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <span class="status-badge inactive">Bloqué</span>
+                                        <button class="btn-action btn-unblock" title="Débloquer l'utilisateur">
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>124</td>
+                                <td>01-09-2021</td>
+                                <td>
+                                    <p>Mohamed Idrissi</p>
+                                </td>
+                                <td>500 DHS</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <span class="status-badge active">Actif</span>
+                                        <button class="btn-action btn-block" title="Bloquer l'utilisateur">
+                                            <i class="fas fa-ban"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+    <script>
+        // Gestionnaire d'événement pour le bouton de déconnexion
+        document.querySelector('.btn-deconnexion').addEventListener('click', function() {
+            alert('Vous avez été déconnecté');
+        }); 
+        document.querySelector('.logout').addEventListener('click', function() {
+            alert('Vous avez été déconnecté');
+        }); 
+
+        const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+        allSideMenu.forEach(item => {
+            const li = item.parentElement;
+            item.addEventListener('click', function() {
+                allSideMenu.forEach(i => {
+                    i.parentElement.classList.remove('active');
+                })
+                li.classList.add('active');
+            })
+        });
+
+        // TOGGLE SIDEBAR
+        const menuBar = document.querySelector('#content nav .bx.bx-menu');
+        const sidebar = document.getElementById('sidebar');
+        menuBar.addEventListener('click', function() {
+            sidebar.classList.toggle('hide');
+        });
+
+        // Fonction de recherche 
+        function searchUsers() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            const table = document.querySelector('.table-data .order table'); 
+            const tr = table.getElementsByTagName('tr');
+            const resetBtn = document.getElementById('resetSearch');
+            let found = false;
+
+            // Parcourir toutes les lignes du tableau (sauf l'en-tête)
+            for (let i = 1; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName('td')[2]; // Colonne du nom
+                if (td) {
+                    const txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().includes(filter)) {
+                        tr[i].style.display = "";
+                        found = true;
+                        
+                        // Mise en évidence du texte trouvé
+                        if (filter.length > 0) {
+                            const regex = new RegExp(filter, 'gi');
+                            td.innerHTML = txtValue.replace(regex, match => `<span class="highlight">${match}</span>`);
+                        }
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+            // Afficher/masquer le bouton de réinitialisation
+            resetBtn.style.display = filter.length > 0 ? "" : "none";
+            if (filter.length > 0 && !found) {
+                alert("Aucun utilisateur trouvée avec ce nom");
+            }
+        }
+
+        // Réinitialiser la recherche
+        function resetSearch() {
+            const input = document.getElementById('searchInput');
+            input.value = "";
+            document.getElementById('resetSearch').style.display = "none";
+            
+            const table = document.querySelector('.table-data .order table');
+            const tr = table.getElementsByTagName('tr');
+            
+            // Afficher toutes les lignes et retirer les surlignages
+            for (let i = 1; i < tr.length; i++) {
+                tr[i].style.display = "";
+                const td = tr[i].getElementsByTagName('td')[2];
+                if (td) {
+                    td.innerHTML = td.textContent; // Retire les balises de surlignage
+                }
+            }
+        }
+
+        // Écouteurs d'événements pour la recherche
+        document.getElementById('searchButton').addEventListener('click', searchUsers);
+        document.getElementById('resetSearch').addEventListener('click', resetSearch);
+        
+        // Recherche lors de la touche Entrée
+        document.getElementById('searchInput').addEventListener('keyup', function(event) {
+            if (event.key === "Enter") {
+                searchUsers();
+            }
+        });
+
+        const searchButton = document.querySelector('#content nav form .form-input button');
+        const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
+        const searchForm = document.querySelector('#content nav form');
+
+        searchButton.addEventListener('click', function(e) {
+            if(window.innerWidth < 576) {
+                e.preventDefault();
+                searchForm.classList.toggle('show');
+                if(searchForm.classList.contains('show')) {
+                    searchButtonIcon.classList.replace('bx-search', 'bx-x');
+                } else {
+                    searchButtonIcon.classList.replace('bx-x', 'bx-search');
+                }
+            }
+        });
+
+        if(window.innerWidth < 768) {
+            sidebar.classList.add('hide');
+        } else if(window.innerWidth > 576) {
+            searchButtonIcon.classList.replace('bx-x', 'bx-search');
+            searchForm.classList.remove('show');
+        }
+
+        window.addEventListener('resize', function() {
+            if(this.innerWidth > 576) {
+                searchButtonIcon.classList.replace('bx-x', 'bx-search');
+                searchForm.classList.remove('show');
+            }
+        });
+
+        const switchMode = document.getElementById('switch-mode');
+        switchMode.addEventListener('change', function() {
+            if(this.checked) {
+                document.body.classList.add('dark');
+            } else {
+                document.body.classList.remove('dark');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gestion des clics sur les boutons de blocage/déblocage
+            document.querySelectorAll('.btn-action').forEach(button => {
+                button.addEventListener('click', function() {
+                    const row = this.closest('tr');
+                    const statusBadge = row.querySelector('.status-badge');
+                    const isBlockAction = this.classList.contains('btn-block');
+                    // Simulation d'appel API
+                    setTimeout(() => {
+                        if (isBlockAction) {
+                            // Mettre à jour l'interface pour bloqué
+                            statusBadge.textContent = 'Bloqué';
+                            statusBadge.classList.remove('active');
+                            statusBadge.classList.add('inactive');
+                            
+                            // Changer le bouton
+                            this.innerHTML = '<i class="fas fa-check"></i>';
+                            this.classList.remove('btn-block');
+                            this.classList.add('btn-unblock');
+                            this.setAttribute('title', 'Débloquer l\'utilisateur');
+                        } else {
+                            // Mettre à jour l'interface pour actif
+                            statusBadge.textContent = 'Actif';
+                            statusBadge.classList.remove('inactive');
+                            statusBadge.classList.add('active');
+                            
+                            // Changer le bouton
+                            this.innerHTML = '<i class="fas fa-ban"></i>';
+                            this.classList.remove('btn-unblock');
+                            this.classList.add('btn-block');
+                            this.setAttribute('title', 'Bloquer l\'utilisateur');
+                        }
+                    }, 300);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

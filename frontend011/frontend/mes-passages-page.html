@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPeage - Mes passages</title>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="mes-passages-page.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <a href="landing-page.html" class="logo">AutoPeage</a>
+        <div class="nav-links">
+            <a href="mon-compte-page.html" class="nav-button">
+                <div class="circle-icon">
+                    <img src="images/icon monEspace.png" alt="">
+                </div>
+                Mon espace
+            </a>
+            <a href="landing-page.html" class="nav-button">
+                Home
+            </a>
+            <button class="logout-btn" onclick="window.location.href='connexion-page.html'">Deconnexion</button>
+        </div>
+    </header>
+    <!-- HEADER -->
+    
+    <main>
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+                        <!-- TITLE -->
+						<h3>Historique de mes passages</h3>
+					</div>
+					<table>
+                        <!-- TABLEAU -->
+						<thead>
+							<tr>
+                                <th>Date et heure</th>
+								<th>Nom station</th>
+								<th>Tarif</th>
+                                <th>Plaque d'immatriculation</th>
+                                <th>Photo véhicule</th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+                                <td>01-10-2021 10:15</td>
+                                <td>Casablanca</td>
+								<td>23 DHS</td>
+                                <td>12345-B-6</td>
+                                <td><img src="" class="vehicle-img" alt=""></td>
+
+							</tr>
+							<tr>
+                                <td>01-10-2021 10:15</td>
+                                <td>Casablanca</td>
+								<td>23 DHS</td>
+                                <td>12345-B-6</td>
+                                <td><img src="" class="vehicle-img" alt=""></td>
+
+							</tr>
+							<tr>
+                                <td>01-10-2021 10:15</td>
+                                <td>Casablanca</td>
+								<td>23 DHS</td>
+                                <td>12345-B-6</td>
+                                <td><img src="" class="vehicle-img" alt=""></td>
+							</tr>
+							<tr>
+                                <td>01-10-2021 10:15</td>
+                                <td>Casablanca</td>
+								<td>23 DHS</td>
+                                <td>12345-B-6</td>
+                                <td><img src="" class="vehicle-img" alt=""></td>
+							</tr>
+							<tr>
+                                <td>01-10-2021 10:15</td>
+                                <td>Casablanca</td>
+								<td>23 DHS</td>
+                                <td>12345-B-6</td>
+                                <td><img src="" class="vehicle-img" alt=""></td>
+							</tr>
+						</tbody>
+					</table>
+                    <!-- TABLEAU -->
+				</div>
+			</div>
+
+
+    </main>
+    
+    <!-- FOOTER -->
+    <footer>
+        <div class="logoend">AutoPeage</div>
+        <p>suivez nous sur nos réseaux sociaux</p>
+        <div class="social-icons">
+            <a href="#" class="social-icon">f</a>
+            <a href="#" class="social-icon">in</a>
+            <a href="#" class="social-icon">YT</a>
+            <a href="#" class="social-icon">IG</a>
+        </div>
+        <div class="copyright">Copyright © 2025 AutoPeage - All rights reserved.</div>
+    </footer>
+    <!-- FOOTER -->
+
+    <script>
+        // Fonction pour ajouter un nouveau passage
+        function addPassage(date, station, montant, plaque, photoUrl) {
+            const table = document.getElementById('passagesTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+            const cell5 = newRow.insertCell(4);
+            
+            cell1.textContent = date;
+            cell2.textContent = station;
+            cell3.textContent = montant;
+            cell4.textContent = plaque;
+            
+            const img = document.createElement('img');
+            img.src = photoUrl;
+            img.className = 'vehicle-img';
+            img.alt = "Photo véhicule";
+            cell5.appendChild(img);
+        }
+        
+        // Gestionnaire d'événement pour le bouton de déconnexion
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            alert('Vous avez été déconnecté');
+        });
+        
+    </script>
+</body>
+</html>

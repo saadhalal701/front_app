@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPeage - Votre classe de véhicule</title>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="classification-page.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <a href="landing-page.html" class="logo">AutoPeage</a>
+        <div class="nav-links">
+            <a href="connexion-page.html" class="nav-button">
+                <div class="icon">
+                    <img src="images/icon monEspace.png" alt="">
+                </div>
+                Mon espace
+            </a>
+            <a href="landing-page.html" class="nav-button">
+                Home
+            </a>
+            <button class="login-btn" onclick="window.location.href='inscription-page.html'">Inscription</button>
+        </div>
+    </header>
+    <!-- HEADER -->
+    
+    <main>
+        <!-- MAIN -->
+        <h1>Votre classe de véhicule</h1>
+        
+        <div class="intro-text">
+            <p>Les critères</p>
+            <p>À chaque classe est attaché un tarif particulier. Les critères retenus pour la définition des classes sont :</p>
+        </div>
+        
+        <ul class="criteria-list">
+            <li class="criteria-item">La hauteur hors tout (pare-brise compris) au droit de l'essieu avant du véhicule ou de l'ensemble.</li>
+            <li class="criteria-item">Le nombre d'essieux du véhicule ou de l'ensemble.</li>
+            <li class="criteria-item">La longueur de véhicule.</li>
+        </ul>
+        
+        <p>Les tarifs des classes 2 et 3 sont calculés sur la base de ceux de la classe 1 par application de coefficients multiplicateurs</p>
+        <!-- CLASSE 1 -->
+        <div class="vehicle-class">
+            <div class="class-title">Classe 1</div>
+            <div class="class-description">
+                <p>Véhicules à 2 essieux et de hauteur (H) inférieure ou égale à 1.30m.</p>
+            </div>
+                <img src="images/photo1 classeVehicule.png" alt="">
+        </div>
+        
+        <!-- CLASSE 2 -->
+        <div class="vehicle-class">
+            <div class="class-title">Classe 2</div>
+            <div class="class-description">
+                <p>Véhicules à 2 essieux de hauteur supérieure à 1 m 30</p>
+                <p>Véhicules ou ensembles à plus de 2 essieux de hauteur inférieure à 1 m 30</p>
+            </div>
+                <img src="images/photo2 classeVehicule.png " alt="">
+        </div>
+        
+        <!-- CLASSE 3 -->
+        <div class="vehicle-class">
+            <div class="class-title">Classe 3</div>
+            <div class="class-description">
+                <p>Véhicules ou ensembles à plus de 2 essieux de hauteur supérieure à 1 m 30</p>
+            </div>
+                    <img src="images/photo3 classeVehicule.png" alt="">
+        </div>
+    </main>
+    
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">AutoPeage</div>
+        <p>suivez nous sur nos réseaux sociaux</p>
+        <div class="social-icons">
+            <a href="#" class="social-icon">f</a>
+            <a href="#" class="social-icon">in</a>
+            <a href="#" class="social-icon">yt</a>
+            <a href="#" class="social-icon">ig</a>
+        </div>
+        <div class="copyright">Copyright © 2025 AutoPeage - All rights reserved.</div>
+    </footer>
+    <!-- FOOTER -->
+
+    
+    <script>
+        // Fonction pour afficher des informations détaillées sur chaque classe de véhicule
+        function showClassDetails(classNumber) {
+            const classInfo = {
+                1: "Les véhicules de classe 1 sont principalement des voitures particulières, motos et petits utilitaires. Le tarif de base est appliqué à cette catégorie.",
+                2: "Les véhicules de classe 2 comprennent les camionnettes, camping-cars et autres véhicules intermédiaires. Le tarif est généralement 1,5 fois celui de la classe 1.",
+                3: "Les véhicules de classe 3 sont les poids lourds, autobus et autres véhicules de grand gabarit. Le tarif est généralement 2,5 fois celui de la classe 1."
+            };
+            
+            alert(`Classe ${classNumber}: ${classInfo[classNumber]}`);
+        }
+        
+        // Ajouter des gestionnaires d'événements pour les classes de véhicules
+        document.querySelectorAll('.vehicle-class').forEach((element, index) => {
+            element.addEventListener('click', function() {
+                showClassDetails(index + 1);
+            });
+            
+            // Ajouter un style de curseur pour indiquer que l'élément est cliquable
+            element.style.cursor = 'pointer';
+        });
+    </script>
+</body>
+</html>

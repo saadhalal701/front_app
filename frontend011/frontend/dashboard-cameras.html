@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="dashboard-cameras.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>AutoPeage - Dashboard Cameras</title>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <span class="text">AutoPeage</span>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="admin-page.html">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Tableau de bord</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboard-historique.html">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text">Historique</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboard-utilisateurs.html">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">Utilisateurs</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboard-stations.html">
+                    <i class='bx bxs-car'></i>
+                    <span class="text">Stations</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="dashboard-cameras.html">
+                    <i class='bx bxs-camera'></i>
+                    <span class="text">Caméras</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="connexion-page.html" class="logout">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <header>
+                <a href="landing-page.html" class="nav-link">Home</a>
+                <button class="btn-deconnexion" onclick="window.location.href='connexion-page.html'">Deconnexion</button>
+            </header>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Caméras</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Gérer les caméras</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                    </ul>
+                </div>
+                <button class="btn-add-camera" onclick="openAddCameraModal()">
+                    <i class='bx bx-plus'></i>
+                    <span>Ajouter une caméra</span>
+                </button>
+            </div>
+
+           <div class="box-info">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Rechercher par localisation...">
+                    <button type="button" id="searchButton">
+                        <i class='bx bx-search'></i>
+                        <span>Rechercher</span>
+                    </button>
+                    <button type="button" id="resetSearch" style="display:none; margin-left: 10px;">
+                        <i class='bx bx-x'></i>
+                        <span>Réinitialiser</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Liste des Caméras</h3>
+                    </div>
+                    <table id="camerasTable">
+                        <thead>
+                            <tr>
+                                <th>N° Caméra</th>
+                                <th>Nom</th>
+                                <th>Localisation</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>
+                                    <p>Caméra Casablanca</p>
+                                </td>
+                                <td>
+                                    <p>Casablanca</p>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-action btn-edit" title="Modifier la camera" onclick="openEditCameraModal(this.closest('tr'))">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Supprimer la camera" onclick="deleteCamera(this.closest('tr'))">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>
+                                    <p>Caméra Casablanca Nord</p>
+                                </td>
+                                <td>
+                                    <p>Casablanca Nord</p>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-action btn-edit" title="Modifier la camera" onclick="openEditCameraModal(this.closest('tr'))">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Supprimer la camera" onclick="deleteCamera(this.closest('tr'))">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>
+                                    <p>Caméra Rabat</p>
+                                </td>
+                                <td>
+                                    <p>Rabat</p>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-action btn-edit" title="Modifier la camera" onclick="openEditCameraModal(this.closest('tr'))">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Supprimer la camera" onclick="deleteCamera(this.closest('tr'))">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>
+                                    <p>Caméra Rabat Sud</p>
+                                </td>
+                                <td>
+                                    <p>Rabat Sud</p>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-action btn-edit" title="Modifier la caméra" onclick="openEditCameraModal(this.closest('tr'))">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Supprimer la caméra" onclick="deleteCamera(this.closest('tr'))">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>
+                                    <p>Caméra Marrakech</p>
+                                </td>
+                                <td>
+                                    <p>Marrakech</p>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-action btn-edit" title="Modifier la camera" onclick="openEditCameraModal(this.closest('tr'))">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn-action btn-delete" title="Supprimer la camera" onclick="deleteCamera(this.closest('tr'))">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Modal pour ajouter une camera -->
+            <div id="addCameraModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeAddCameraModal()">&times;</span>
+                    <h2>Ajouter une nouvelle camera</h2>
+                    <form id="addCameraForm">
+                        <div class="form-group">
+                            <label for="cameraLocation">Localisation de la camera: (station)</label>
+                            <input type="text" id="cameraLocation" name="cameraLocation" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cameraLogin">Login de la camera:</label>
+                            <input type="text" id="cameraLogin" name="cameraLogin" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cameraPw">Mot de passe:</label>
+                            <input type="text" id="cameraPw" name="cameraPw" required>
+                        </div>
+                        <button type="submit" class="btn-submit">Ajouter la camera</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Modal pour éditer une caméra -->
+            <div id="editCameraModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeEditCameraModal()">&times;</span>
+                    <h2>Modifier la caméra</h2>
+                    <form id="editCameraForm">
+                        <div class="form-group">
+                            <label for="editCameraName">Nom de la caméra :</label>
+                            <input type="text" id="editCameraName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editCameraLocation">Localisation :</label>
+                            <input type="text" id="editCameraLocation" required>
+                        </div>
+                        <button type="submit" class="btn-submit">Enregistrer</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+    <script>
+        // Variables globales
+        let lastCameraId = 5;
+        let currentEditingRow = null;
+
+        // Fonction de recherche par localisation
+        function searchCameras() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            const table = document.getElementById('camerasTable');
+            const tr = table.getElementsByTagName('tr');
+            const resetBtn = document.getElementById('resetSearch');
+            let found = false;
+
+            // Parcourir toutes les lignes du tableau (sauf l'en-tête)
+            for (let i = 1; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName('td')[2]; // Colonne de localisation (3ème colonne)
+                if (td) {
+                    const p = td.querySelector('p'); // On cherche le paragraphe dans la cellule
+                    const txtValue = p ? p.textContent || p.innerText : '';
+                    if (txtValue.toUpperCase().includes(filter)) {
+                        tr[i].style.display = "";
+                        found = true;
+                        
+                        // Mise en évidence du texte trouvé
+                        if (filter.length > 0 && p) {
+                            const regex = new RegExp(filter, 'gi');
+                            p.innerHTML = txtValue.replace(regex, match => `<span class="highlight">${match}</span>`);
+                        }
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+
+            // Afficher/masquer le bouton de réinitialisation
+            resetBtn.style.display = filter.length > 0 ? "" : "none";
+            if (filter.length > 0 && !found) {
+                alert("Aucune caméra trouvée avec cette localisation");
+            }
+        }
+
+        // Réinitialiser la recherche
+        function resetSearch() {
+            document.getElementById('searchInput').value = "";
+            document.getElementById('resetSearch').style.display = "none";
+            
+            const table = document.getElementById('camerasTable');
+            const tr = table.getElementsByTagName('tr');
+            
+            // Afficher toutes les lignes et retirer les surlignages
+            for (let i = 1; i < tr.length; i++) {
+                tr[i].style.display = "";
+                const td = tr[i].getElementsByTagName('td')[2];
+                if (td) {
+                    const p = td.querySelector('p');
+                    if (p) {
+                        p.innerHTML = p.textContent; // Retire les balises de surlignage
+                    }
+                }
+            }
+        }
+
+        // Écouteurs d'événements pour la recherche
+        document.getElementById('searchButton').addEventListener('click', searchCameras);
+        document.getElementById('resetSearch').addEventListener('click', resetSearch);
+        
+        // Recherche lors de la touche Entrée
+        document.getElementById('searchInput').addEventListener('keyup', function(event) {
+            if (event.key === "Enter") {
+                searchCameras();
+            }
+        });
+
+        // Fonctions pour les modals
+        function openAddCameraModal() {
+            document.getElementById('addCameraModal').style.display = 'block';
+        }
+
+        function closeAddCameraModal() {
+            document.getElementById('addCameraModal').style.display = 'none';
+        }
+
+        function openEditCameraModal(row) {
+            currentEditingRow = row;
+            const cameraName = row.querySelector('td:nth-child(2) p').textContent;
+            const cameraLocation = row.querySelector('td:nth-child(3) p').textContent;
+            
+            document.getElementById('editCameraName').value = cameraName;
+            document.getElementById('editCameraLocation').value = cameraLocation;
+            document.getElementById('editCameraModal').style.display = 'block';
+        }
+
+        function closeEditCameraModal() {
+            document.getElementById('editCameraModal').style.display = 'none';
+        }
+
+        // Fonction pour supprimer une caméra
+        function deleteCamera(row) {
+            if(confirm('Êtes-vous sûr de vouloir supprimer cette caméra?')) {
+                row.remove();
+                alert('Caméra supprimée avec succès!');
+            }
+        }
+
+        // Gestion du formulaire d'ajout
+        document.getElementById('addCameraForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const cameraLocation = document.getElementById('cameraLocation').value;    
+            lastCameraId++;
+            
+            const tableBody = document.querySelector('.table-data .order table tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${lastCameraId}</td>
+                <td><p>Caméra ${cameraLocation}</p></td>
+                <td><p>${cameraLocation}</p></td>
+                <td>
+                    <div class="action-buttons">
+                        <button class="btn-action btn-edit" title="Modifier la caméra" onclick="openEditCameraModal(this.closest('tr'))">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn-action btn-delete" title="Supprimer la caméra" onclick="deleteCamera(this.closest('tr'))">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            
+            tableBody.appendChild(newRow);
+            closeAddCameraModal();
+            this.reset();
+            alert('Caméra ajoutée avec succès!');
+        });
+
+        // Gestion du formulaire d'édition
+        document.getElementById('editCameraForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newName = document.getElementById('editCameraName').value;
+            const newLocation = document.getElementById('editCameraLocation').value;
+            
+            if (currentEditingRow) {
+                currentEditingRow.querySelector('td:nth-child(2) p').textContent = newName;
+                currentEditingRow.querySelector('td:nth-child(3) p').textContent = newLocation;
+                alert("Caméra modifiée avec succès !");
+                closeEditCameraModal();
+            }
+        });
+
+        // Gestion de la sidebar
+        const menuBar = document.querySelector('#content nav .bx.bx-menu');
+        const sidebar = document.getElementById('sidebar');
+
+        menuBar.addEventListener('click', function () {
+            sidebar.classList.toggle('hide');
+        });
+
+        // Gestion de la déconnexion
+        document.querySelector('.btn-deconnexion').addEventListener('click', function() {
+            alert('Vous avez été déconnecté');
+        });
+
+        document.querySelector('.logout').addEventListener('click', function() {
+            alert('Vous avez été déconnecté');
+        });
+
+        // Fermer les modals si on clique en dehors
+        window.addEventListener('click', function(event) {
+            const addModal = document.getElementById('addCameraModal');
+            const editModal = document.getElementById('editCameraModal');
+            
+            if (event.target === addModal) {
+                closeAddCameraModal();
+            }
+            if (event.target === editModal) {
+                closeEditCameraModal();
+            }
+        });
+
+        // Gestion du menu actif
+        const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+        allSideMenu.forEach(item => {
+            const li = item.parentElement;
+            item.addEventListener('click', function () {
+                allSideMenu.forEach(i => {
+                    i.parentElement.classList.remove('active');
+                })
+                li.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

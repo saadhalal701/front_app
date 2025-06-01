@@ -1,0 +1,221 @@
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+             font-family: 'Impact', sans-serif;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+            color: black;
+        }
+
+        
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn-deconnexion {
+           background-color: black;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .circle-icon img{
+            width: 20px;           
+            height: 20px; 
+            vertical-align: middle;  
+            margin-right: 5px; 
+        }
+        
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .page-title {
+            font-size: 14px;
+            font-weight: bold;
+}
+        
+        
+        .payment-form {
+            margin: 40px auto;
+            max-width: 600px;   
+        }
+
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .expiry-cvv {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .expiry-cvv .form-group {
+            flex: 1;
+        }
+        
+        .btn-recharger {
+            width: 100%;
+            background-color: #e6b38d;
+            border: none;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
+            margin-top: 40px;
+        }
+        
+        .footer-logo {
+            font-family: 'Impact', sans-serif;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+      
+        
+       .social-text {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .social-icon {
+             width: 24px;
+            height: 24px;
+            background-color: #ccc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 14px;
+        }
+        
+        /* Icônes simulées */
+        .icon {
+            width: 20px;
+            height: 20px;
+            background-color: #777;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        
+        .card-icon {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background-color: #000;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+        /* Styles pour les messages d'erreur */
+.error-message {
+    display: none; /* Caché par défaut */
+    color: #d32f2f; /* Rouge foncé */
+    font-size: 0.75rem; /* 12px environ */
+    margin-top: 4px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+/* Style des champs invalides */
+input:invalid {
+    border-color: #d32f2f !important; /* Rouge quand invalide */
+    background-color: #fff9f9; /* Fond légèrement rouge */
+}
+
+/* Style quand le champ est en focus et invalide */
+input:focus:invalid {
+    box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.2);
+}
+
+/* Animation pour les erreurs */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+/* Appliquer l'animation aux champs invalides */
+input:invalid {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Style pour le bouton désactivé */
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: #cccccc !important;
+}

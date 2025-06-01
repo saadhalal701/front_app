@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPeage - Rechargement compte</title>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="rechargement.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <a href="landing-page.html" class="logo">AutoPeage</a>
+        <div class="nav-links">
+            <a href="connexion-page.html">
+                <div class="circle-icon">
+                    <img src="images/icon monEspace.png" alt="">
+                </div> Mon espace</a>
+            <a href="landing-page.html"> Home</a>
+            <button class="btn-deconnexion">Deconnexion</button>
+        </div>
+    </header>
+    
+    <main>
+        <div class="page-title">
+            <h1>Rechargement compte</h1>
+        </div>
+        
+        <div class="payment-form">
+            <h2>Information paiement</h2>
+            
+            <!-- FORMULAIRE -->
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="card-number">Numéro de carte</label>
+                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+                    <span class="error-message" id="card-number-error">Numéro de carte invalide</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="card-name">Nom sur la carte</label>
+                    <input type="text" id="card-name" placeholder="Mohammed Idrissi" required>
+                    <span class="error-message" id="card-name-error">Veuillez entrer le nom</span>
+                </div>
+                
+                <div class="expiry-cvv">
+                    <div class="form-group">
+                        <label for="expiry">Date d'expiration</label>
+                        <input type="text" id="expiry" placeholder="MM/AA" required>
+                        <span class="error-message" id="expiry-error">Format MM/AA requis</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="123" required>
+                        <span class="error-message" id="cvv-error">Code CVV invalide</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">Montant à recharger</label>
+                    <input type="number" id="amount" placeholder="Saisir le montant en dirhams" min="10" required>
+                    <span class="error-message" id="amount-error">Minimum 10 DH</span>
+                </div>
+                
+                <button type="submit" class="btn-recharger" id="submit-btn">Recharger</button>
+            </form>
+        </div>
+    </main>
+    
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">AutoPeage</div>
+        <p class="social-text">suivez nous sur nos réseaux sociaux</p>
+        
+        <div class="social-icons">
+            <a href="#" class="social-icon">f </a>
+            <a href="#" class="social-icon">in</a>
+            <a href="#" class="social-icon">yt</a>
+            <a href="#" class="social-icon">ig</a>
+        </div>
+        <p class="copyright">Copyright © 2025 AutoPeage - All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Éléments du DOM
+            const paymentForm = document.getElementById('paymentForm');
+            const submitBtn = document.getElementById('submit-btn');
+            const cardNumberInput = document.getElementById('card-number');
+            const expiryInput = document.getElementById('expiry');
+            const deconnexionBtn = document.querySelector('.btn-deconnexion');
+            
+            // Ordre des champs pour la navigation au clavier
+            const fieldsOrder = ['card-number', 'card-name', 'expiry', 'cvv', 'amount'];
+            
+            // Fonctions de validation
+            function validateCardNumber(value) {
+                return /^\d{16}$/.test(value.replace(/\s/g, ''));
+            }
+            
+            function validateCardName(value) {
+                return value.trim() !== '';
+            }
+            
+            function validateExpiry(value) {
+                return /^\d{2}\/\d{2}$/.test(value);
+            }
+            
+            function validateCVV(value) {
+                return /^\d{3,4}$/.test(value);
+            }
+            
+            function validateAmount(value) {
+                const amount = parseFloat(value);
+                return !isNaN(amount) && amount >= 10;
+            }
+            
+            // Formatage des entrées
+            function formatCardNumber(value) {
+                return value.replace(/\s/g, '')
+                           .replace(/(\d{4})(?=\d)/g, '$1 ')
+                           .trim()
+                           .substring(0, 19);
+            }
+            
+            function formatExpiry(value) {
+                return value.replace(/\D/g, '')
+                            .replace(/^(\d{2})(\d{0,2})/, (match, p1, p2) => 
+                                p2 ? `${p1}/${p2}` : p1)
+                            .substring(0, 5);
+            }
+            
+            // Traitement du paiement
+            function processPayment() {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Traitement en cours...';
+                
+                setTimeout(() => {
+                    alert('Paiement réussi! Votre compte a été rechargé.');
+                    paymentForm.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Recharger';
+                }, 2000);
+            }
+            
+            // Événements
+            cardNumberInput.addEventListener('input', function(e) {
+                this.value = formatCardNumber(this.value);
+            });
+            
+            expiryInput.addEventListener('input', function(e) {
+                this.value = formatExpiry(this.value);
+            });
+            
+            // Navigation au clavier
+            fieldsOrder.forEach((id, index) => {
+                const field = document.getElementById(id);
+                if (field) {
+                    field.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            if (index < fieldsOrder.length - 1) {
+                                document.getElementById(fieldsOrder[index + 1]).focus();
+                            } else {
+                                submitBtn.click();
+                            }
+                        }
+                    });
+                }
+            });
+            
+            // Validation du formulaire
+            paymentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Réinitialiser les erreurs
+                document.querySelectorAll('.error-message').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                // Validation des champs
+                const isValid = [
+                    validateCardNumber(cardNumberInput.value),
+                    validateCardName(document.getElementById('card-name').value),
+                    validateExpiry(expiryInput.value),
+                    validateCVV(document.getElementById('cvv').value),
+                    validateAmount(document.getElementById('amount').value)
+                ].every(valid => valid);
+                
+                // Affichage des erreurs si nécessaire
+                if (!validateCardNumber(cardNumberInput.value)) {
+                    document.getElementById('card-number-error').style.display = 'block';
+                }
+                if (!validateCardName(document.getElementById('card-name').value)) {
+                    document.getElementById('card-name-error').style.display = 'block';
+                }
+                if (!validateExpiry(expiryInput.value)) {
+                    document.getElementById('expiry-error').style.display = 'block';
+                }
+                if (!validateCVV(document.getElementById('cvv').value)) {
+                    document.getElementById('cvv-error').style.display = 'block';
+                }
+                if (!validateAmount(document.getElementById('amount').value)) {
+                    document.getElementById('amount-error').style.display = 'block';
+                }
+                
+                // Si tout est valide, procéder au paiement
+                if (isValid) {
+                    processPayment();
+                }
+            });
+            
+            // Déconnexion
+            deconnexionBtn.addEventListener('click', function() {
+                alert('Vous avez été déconnecté');
+                window.location.href = 'connexion-page.html';
+            });
+        });
+    </script>
+</body>
+</html>
