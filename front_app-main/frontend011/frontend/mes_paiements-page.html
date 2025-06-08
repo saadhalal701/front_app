@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPeage - Mes transactions</title>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="mes-paiements-page.css">
+</head>
+<body>
+<header>
+    <!-- HEADER -->
+        <a href="landing-page.html" class="logo">AutoPeage</a>
+        <div class="nav-links">
+            <a href="mon-compte-page.html" class="nav-button">
+                <div class="circle-icon">
+                    <img src="images/icon monEspace.png" alt="">
+                </div>
+                Mon espace
+            </a>
+            <a href="landing-page.html" class="nav-button">
+                Home
+            </a>
+            <button class="logout-btn" onclick="window.location.href='connexion-page.html'" >Deconnexion</button>
+        </div>
+    </header>
+    <!-- HEADER -->
+    
+    <main>
+        <div class="table-data">
+				<div class="order">
+					<div class="head">
+                        <!-- TITLE -->
+						<h3>Historique de mes paiements</h3>
+					</div>
+                <!-- TABLEAU -->
+					<table>
+						<thead>
+							<tr>
+								<th>Date</th>
+                                <th>ID transaction</th>
+								<th>Montant</th>
+							</tr>
+						</thead>
+						<tbody id="paiementsBody">
+							<tr>
+                                <td>01-10-2021</td>
+                                <td>122</td>
+								<td>23 DHS</td>
+							</tr>
+							
+							
+							
+							
+						</tbody>
+					</table>
+                <!-- TABLEAU -->
+				</div>
+			</div>
+
+    </main>
+    
+    <!-- FOOTER -->
+    <footer>
+        <div class="logoend">AutoPeage</div>
+        <p>suivez nous sur nos réseaux sociaux</p>
+        <div class="social-icons">
+            <a href="#" class="social-icon">f</a>
+            <a href="#" class="social-icon">in</a>
+            <a href="#" class="social-icon">YT</a>
+            <a href="#" class="social-icon">IG</a>
+        </div>
+        <div class="copyright">Copyright © 2025 AutoPeage - All rights reserved.</div>
+    </footer>
+
+    <script>
+        // Fonction pour ajouter une nouvelle transaction
+        const token = localStorage.getItem('token');
+        function addTransaction(numero, date, montant, plaque) {
+            const table = document.getElementById('transactionsTable').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            
+            const cell1 = newRow.insertCell(0);
+            const cell2 = newRow.insertCell(1);
+            const cell3 = newRow.insertCell(2);
+            const cell4 = newRow.insertCell(3);
+            
+            cell1.textContent = numero;
+            cell2.textContent = date;
+            cell3.textContent = montant;
+            cell4.textContent = plaque;
+        }
+        
+        // Gestionnaire d'événement pour le bouton de déconnexion
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            alert('Vous avez été déconnecté');
+            
+        });
+        if (token) {
+    fetch('http://localhost:8081/api/user/paiements', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des paiements');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const paiements = data.paiements;
+        const tableBody = document.getElementById('paiementsBody');
+        tableBody.innerHTML = ''; // Vider le tableau avant de l'afficher
+
+        paiements.forEach(paiement => {
+            const row = document.createElement('tr');
+
+            const dateCell = document.createElement('td');
+            dateCell.textContent = paiement.created_at.substring(0, 10); // ou autre champ date
+
+            const idCell = document.createElement('td');
+            idCell.textContent = paiement.id;
+
+            const montantCell = document.createElement('td');
+            montantCell.textContent = paiement.montant + ' DHS';
+
+            row.appendChild(dateCell);
+            row.appendChild(idCell);
+            row.appendChild(montantCell);
+
+            tableBody.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Erreur :', error.message);
+    });
+} else {
+    alert("Utilisateur non connecté. Veuillez vous reconnecter.");
+    window.location.href = "connexion-page.html";
+}
+        </script>
+</body>
+</html>

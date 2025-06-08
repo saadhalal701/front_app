@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPeage - Inscription</title>
+    <!-- My CSS --> 
+    <link rel="stylesheet" href="inscription-page.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <a href="landing-page.html" class="logo">AutoPeage</a>
+        <a href="landing-page.html" class="home-link">
+            <span> Home</span>
+        </a>
+    </header>
+    <!-- HEADER -->
+
+    <div class="container">
+        <div class="signup-form">
+            <div class="form-header">
+                <!-- USER ICON -->
+                <div class="user-icon">
+                    <img src="images/icon inscription.png" alt="">
+                </div>
+                <h2 class="form-title">Nouveau compte</h2>
+            </div>
+            
+            <!-- FORMULAIRE -->
+            <form id="registrationForm">
+                <div class="name-fields">
+                    <div class="form-group">
+                        <label for="prenom">Prénom</label>
+                        <input type="text" id="prenom" name="prenom" placeholder="Mohamed" required minlength="2" maxlength="50">
+                        <span class="error-message"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="nom">Nom</label>
+                        <input type="text" id="nom" name="nom" placeholder="Idrissi" required minlength="2" maxlength="50">
+                        <span class="error-message"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Plaques d'immatriculation</label>
+                    <div id="plates-container">
+                        <div class="plate-input-group">
+                            <input type="text" class="matricule" placeholder="12345-B-6" required>
+                            <button type="button" class="remove-plate" style="display: none;">×</button>
+                        </div>
+                    </div>
+                    <button type="button" id="add-plate">+ Ajouter une plaque</button>
+                    <span class="error-message" style="display: none;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="telephone">N° téléphone</label>
+                    <input type="tel" id="telephone" name="telephone" placeholder="0612345678" required>
+                    <span class="format-hint">Format: 0612345678 (10 chiffres)</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Adresse email</label>
+                    <input type="email" id="email" name="email" placeholder="mohamedidrissi@gmail.com" required>
+                    <span class="error-message"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="Saisir votre mot de passe" required>
+                    <span class="format-hint">Minimum 8 caractères</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password">Confirmation mot de passe</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirmer votre mot de passe" required>
+                    <span class="error-message"></span>
+                </div>
+                
+                <button type="submit">Créer Compte</button>
+                <p class="text-center hv-account">Vous avez deja un compte?</p>
+                
+                <button id="submitBtn" type="button" class="btn-secondary">Connectez-vous</button>
+            </form>
+            <!-- FORMULAIRE -->
+        </div>
+
+        <!-- FOOTER -->        
+        <footer>
+            <div class="logoend">AutoPeage</div>
+            <p class="social-text">suivez nous sur nos réseaux sociaux</p>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon">f </a>
+                <a href="#" class="social-icon">in</a>
+                <a href="#" class="social-icon">yt</a>
+                <a href="#" class="social-icon">ig</a>
+            </div>
+            
+            <p class="copyright">Copyright © 2025 AutoPeage - All rights reserved.</p>
+        </footer>
+        <!-- FOOTER -->
+    </div>
+    
+   <script>
+    // Show error message next to input
+    function showError(element, message) {
+        const errorSpan = element.nextElementSibling;
+        if (errorSpan) {
+            errorSpan.textContent = message;
+            errorSpan.style.display = 'block';
+        }
+        element.classList.add('error');
+    }
+
+    // Clear error message
+    function clearError(element) {
+        const errorSpan = element.nextElementSibling;
+        if (errorSpan) {
+            errorSpan.textContent = '';
+            errorSpan.style.display = 'none';
+        }
+        element.classList.remove('error');
+    }
+
+    // Validate name (prenom and nom)
+    function validateName(fieldId) {
+        const input = document.getElementById(fieldId);
+        clearError(input);
+        const value = input.value.trim();
+        if (value.length < 2 || value.length > 50) {
+            showError(input, 'Le nom doit comporter entre 2 et 50 caractères.');
+            return false;
+        }
+        return true;
+    }
+
+    // Validate phone number (format 0612345678)
+    function validatePhone() {
+        const input = document.getElementById('telephone');
+        clearError(input);
+        const phoneRegex = /^06\d{8}$/;
+        if (!phoneRegex.test(input.value.trim())) {
+            showError(input, 'Format de téléphone invalide (ex: 0612345678).');
+            return false;
+        }
+        return true;
+    }
+
+    // Validate email format
+    function validateEmail() {
+        const input = document.getElementById('email');
+        clearError(input);
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(input.value.trim())) {
+            showError(input, 'Adresse email invalide.');
+            return false;
+        }
+        return true;
+    }
+
+    // Validate password length
+    function validatePassword() {
+        const input = document.getElementById('password');
+        clearError(input);
+        if (input.value.length < 4) {
+            showError(input, 'Le mot de passe doit contenir au moins 8 caractères.');
+            return false;
+        }
+        return true;
+    }
+
+    // Validate password confirmation matches
+    function validatePasswordMatch() {
+        const password = document.getElementById('password');
+        const confirm = document.getElementById('confirm-password');
+        clearError(confirm);
+        if (password.value !== confirm.value) {
+            showError(confirm, 'Les mots de passe ne correspondent pas.');
+            return false;
+        }
+        return true;
+    }
+
+    // Format plate input value (uppercase + trimmed)
+    function formatPlate(plateInput) {
+        return plateInput.value.trim().toUpperCase();
+    }
+
+    // Validate plate format (ex: 12345-B-6)
+    function validatePlate(plateValue) {
+        const plateRegex = /^\d{1,5}-[A-Z]-\d{1,2}$/;
+        if (!plateRegex.test(plateValue)) {
+            return false;
+        }
+        return true;
+    }
+
+    // Main form submit event listener
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        let isValid = true;
+
+        // Clear all errors before validating
+        const inputs = this.querySelectorAll('input');
+        inputs.forEach(input => clearError(input));
+
+        // Validation of required fields
+        const requiredFields = ['prenom', 'nom', 'telephone', 'email', 'password', 'confirm-password'];
+        requiredFields.forEach(field => {
+            const element = document.getElementById(field);
+            if (!element.value.trim()) {
+                showError(element, 'Ce champ est obligatoire');
+                isValid = false;
+            }
+        });
+
+        // Specific validations
+        if (!validateName('prenom')) isValid = false;
+        if (!validateName('nom')) isValid = false;
+        if (!validatePhone()) isValid = false;
+        if (!validateEmail()) isValid = false;
+        if (!validatePassword()) isValid = false;
+        if (!validatePasswordMatch()) isValid = false;
+
+        // Validate plates
+        const plates = document.querySelectorAll('.matricule');
+        plates.forEach(plate => {
+            clearError(plate);
+            const formatted = formatPlate(plate);
+            if (!validatePlate(formatted)) {
+                showError(plate, 'Format de plaque invalide (ex: 12345-B-6)');
+                isValid = false;
+            }
+        });
+
+        if (!isValid) return;
+
+        // Prepare data for backend
+        const platesData = Array.from(plates).map(plate => plate.value.trim());
+
+        const data = {
+            name: document.getElementById('prenom').value.trim() + ' ' + document.getElementById('nom').value.trim(),
+            phone: document.getElementById('telephone').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            password: document.getElementById('password').value,
+            password_confirmation: document.getElementById('confirm-password').value,
+            matricule: platesData.length > 0 ? platesData[0] : null,
+        };
+
+        // Send POST request to backend API
+        fetch('http://127.0.0.1:8081/api/register', { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => {
+            if (!response.ok) return response.json().then(err => Promise.reject(err));
+            return response.json();
+        })
+        .then(json => {
+            alert('Compte créé avec succès!');
+            window.location.href = 'connexion-page.html';
+        })
+        .catch(error => {
+            if (error.errors) {
+                Object.entries(error.errors).forEach(([field, messages]) => {
+                    let inputField = null;
+                    if (field === 'name') inputField = document.getElementById('prenom');
+                    else if (field === 'email') inputField = document.getElementById('email');
+                    else if (field === 'password') inputField = document.getElementById('password');
+                    else if (field === 'phone') inputField = document.getElementById('telephone');
+                    else if (field === 'matricule') inputField = document.querySelector('.matricule');
+                    
+                    if (inputField) {
+                        showError(inputField, messages.join(', '));
+                    }
+                });
+            } else {
+                alert('Une erreur est survenue. Veuillez réessayer.');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

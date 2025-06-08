@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPeage - Mon compte</title>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="mon-compte-page.css">
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header>
+        <a href="landing-page.html" class="logo">AutoPeage</a>
+        <div class="nav-links">
+            <a href="landing-page.html" class="home-link">
+                Home
+            </a>
+            <a href="#" class="logout-btn" onclick="window.location.href='connexion-page.html'">Déconnexion</a>
+        </div>
+    </header>
+    
+    <main>
+        <section class="welcome-section">
+<!-- BIENVENUE -->
+            <h1 class="welcome-title">Bienvenue 
+               <span id="name_user"></span>
+            </h1>
+<!-- SOLDE -->
+            <div class="balance-container">
+                <div class="balance-text">Votre solde actuel est de :</div>
+                <div class="card-container">
+                    <div class="card">
+                        <div class="card-chip"></div>
+                        <div class="card-amount">
+                        <!-- <?php echo number_format($_SESSION['solde'], 2); ?> -->
+                        <span id="solde_user"></span>DHS</div>
+                        <div class="card-line"></div>
+                        <div class="card-stripe"></div>
+                    </div>
+                    <a href="#" class="recharge-btn" id="rechargeBtn" onclick="window.location.href='rechargement.html'">Recharger mon compte</a>
+                </div>
+            </div>
+        </section>
+        <!-- PASSAGES -->
+        <section class="history-section">
+            <div class="history-card">
+                <div class="history-img">
+                    <svg class="history-icon" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="40" y="25" width="50" height="25" fill="none" stroke="#777" stroke-width="2"/>
+                        <circle cx="60" cy="50" r="6" fill="none" stroke="#777" stroke-width="2"/>
+                        <circle cx="80" cy="50" r="6" fill="none" stroke="#777" stroke-width="2"/>
+                    </svg>
+                </div>
+                <h3 class="history-title">Historique des passages</h3>
+                <button class="history-btn" id="passagesBtn">Consulter</button>
+            </div>
+            
+            <!-- PAIEMENTS -->
+            <div class="history-card payments-card">
+                <div class="history-img">
+                    <svg class="history-icon" viewBox="0 0 100 60" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="15" width="30" height="40" fill="none" stroke="#777" stroke-width="2"/>
+                        <line x1="55" y1="25" x2="75" y2="25" stroke="#777" stroke-width="2"/>
+                        <line x1="55" y1="30" x2="75" y2="30" stroke="#777" stroke-width="2"/>
+                        <line x1="55" y1="35" x2="75" y2="35" stroke="#777" stroke-width="2"/>
+                        <line x1="55" y1="40" x2="75" y2="40" stroke="#777" stroke-width="2"/>
+                    </svg>
+                </div>
+                <h3 class="history-title">Historique des paiements</h3>
+                <button class="history-btn" id="paymentsBtn">Consulter</button>
+            </div>
+        </section>
+    </main>
+    
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">AutoPeage</div>
+        <p class="social-text">suivez nous sur nos réseaux sociaux</p>
+        
+        <div class="social-icons">
+            <a href="#" class="social-icon">f </a>
+            <a href="#" class="social-icon">in</a>
+            <a href="#" class="social-icon">yt</a>
+            <a href="#" class="social-icon">ig</a>
+        </div>
+        <p class="copyright">Copyright © 2025 AutoPeage - All rights reserved.</p>
+    </footer>
+    
+    <script>
+         
+         const solde = localStorage.getItem('solde');
+         document.getElementById('solde_user').textContent = ` ${solde} `;
+         const fullName = localStorage.getItem('name');
+    document.getElementById('name_user').textContent = ` ${fullName} !`;
+        // Recharge button functionality
+        document.getElementById('rechargeBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+        window.location.href = 'rechargement.html'; 
+        });
+        
+        // Passages history button
+        document.getElementById('passagesBtn').addEventListener('click', function() {
+        window.location.href = 'mes-passages-page.html'; 
+        });
+        
+        // Payments history button
+        document.getElementById('paymentsBtn').addEventListener('click', function() {
+        window.location.href = 'mes_paiements-page.html'; 
+        });
+        
+        // Add some animation to the card on hover
+        const card = document.querySelector('.card');
+        card.addEventListener('mouseenter', function() {
+            this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            this.style.transform = 'translateY(-5px)';
+            this.style.transition = 'all 0.3s ease';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.boxShadow = 'none';
+            this.style.transform = 'translateY(0)';
+        });
+        
+       
+         // Gestionnaire d'événement pour le bouton de déconnexion
+        document.querySelector('.logout-btn').addEventListener('click', function() {
+            alert('Vous avez été déconnecté');
+           
+        }); 
+    </script>
+</body>
+</html>

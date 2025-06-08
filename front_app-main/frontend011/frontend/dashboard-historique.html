@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="dashboard-historique.css">
+
+	<title>AutoPeage - Dashboard Historique</title>
+</head>
+<body>
+
+
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<span class="text">AutoPeage</span>
+		</a>
+		<ul class="side-menu top">
+			<li>
+				<a href="admin-page.html">
+					<i class='bx bxs-dashboard' ></i>
+					<span class="text">Tableau de bord</span>
+				</a>
+			</li>
+			<li class="active">
+				<a href="dashboard-historique.html">
+					<i class='bx bxs-doughnut-chart' ></i>
+					<span class="text">Historique</span>
+				</a>
+			</li>
+			<li>
+				<a href="dashboard-utilisateurs.html">
+					<i class='bx bxs-group' ></i>
+					<span class="text">Utilisateurs</span>
+				</a>
+			</li>
+			<li>
+				<a href="dashboard-stations.html">
+					<i class='bx bxs-car' ></i>
+					<span class="text">Stations</span>
+				</a>
+			</li>
+			<li>
+				<a href="dashboard-cameras.html">
+					<i class='bx bxs-camera' ></i>
+					<span class="text">Cameras</span>
+				</a>
+			</li>
+		</ul>
+		</ul>
+		<ul class="side-menu">
+			<li>
+				<a href="connexion-page.html" class="logout">
+					<i class='bx bxs-log-out-circle' ></i>
+					<span class="text">Logout</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class='bx bx-menu' ></i>
+        <header>
+            <a href="landing-page.html" class="nav-link">Home</a>
+				<button class="btn-deconnexion" onclick="window.location.href='connexion-page.html'">Deconnexion</button>
+		</header>
+        </nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<h1>Historique</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Consulter l'historique</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+						
+					</ul>
+				</div>
+			</div>
+
+				
+
+
+        <div class="box-info">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Rechercher par nom de station...">
+                    <button type="button" id="searchButton">
+                        <i class='bx bx-search'></i>
+                        <span>Rechercher</span>
+                    </button>
+                    <button type="button" id="resetSearch" style="display:none; margin-left: 10px;">
+                        <i class='bx bx-x'></i>
+                        <span>Réinitialiser</span>
+                    </button>
+                </div>
+            </div>
+
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Historique des passages</h3>
+					</div>
+					<table id="usersTable">
+						<thead>
+							<tr>
+								<th>ID Passage</th>
+								<th>Date et heure</th>
+								<th>Utilisateur</th>
+                                <th>Plaque</th>
+							</tr>
+						</thead>
+						<tbody id="historiquebody">
+							
+							
+							
+							
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	
+
+	
+       <script>
+document.querySelector('.btn-deconnexion').addEventListener('click', function () {
+	alert('Vous avez été déconnecté');
+});
+document.querySelector('.logout').addEventListener('click', function () {
+	alert('Vous avez été déconnecté');
+});
+
+const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+allSideMenu.forEach(item => {
+	const li = item.parentElement;
+	item.addEventListener('click', function () {
+		allSideMenu.forEach(i => i.parentElement.classList.remove('active'));
+		li.classList.add('active');
+	});
+});
+
+// Fonction de recherche
+function searchUsers() {
+	const input = document.getElementById('searchInput');
+	const filter = input.value.toUpperCase();
+	const table = document.querySelector('.table-data .order table');
+	const tr = table.getElementsByTagName('tr');
+	const resetBtn = document.getElementById('resetSearch');
+	let found = false;
+
+	for (let i = 1; i < tr.length; i++) {
+		const td = tr[i].getElementsByTagName('td')[2];
+		if (td) {
+			const txtValue = td.textContent || td.innerText;
+			if (txtValue.toUpperCase().includes(filter)) {
+				tr[i].style.display = "";
+				found = true;
+				if (filter.length > 0) {
+					const regex = new RegExp(filter, 'gi');
+					td.innerHTML = txtValue.replace(regex, match => `<span class="highlight">${match}</span>`);
+				}
+			} else {
+				tr[i].style.display = "none";
+			}
+		}
+	}
+
+	resetBtn.style.display = filter.length > 0 ? "" : "none";
+	if (filter.length > 0 && !found) {
+		alert("Aucun utilisateur trouvée avec ce nom");
+	}
+}
+
+function resetSearch() {
+	const input = document.getElementById('searchInput');
+	input.value = "";
+	document.getElementById('resetSearch').style.display = "none";
+
+	const table = document.querySelector('.table-data .order table');
+	const tr = table.getElementsByTagName('tr');
+	for (let i = 1; i < tr.length; i++) {
+		tr[i].style.display = "";
+		const td = tr[i].getElementsByTagName('td')[2];
+		if (td) td.innerHTML = td.textContent;
+	}
+}
+
+document.getElementById('searchButton').addEventListener('click', searchUsers);
+document.getElementById('resetSearch').addEventListener('click', resetSearch);
+document.getElementById('searchInput').addEventListener('keyup', function (event) {
+	if (event.key === "Enter") searchUsers();
+});
+
+// Toggle sidebar
+const menuBar = document.querySelector('#content nav .bx.bx-menu');
+const sidebar = document.getElementById('sidebar');
+menuBar.addEventListener('click', function () {
+	sidebar.classList.toggle('hide');
+});
+
+// Responsive adjustments
+if (window.innerWidth < 768) {
+	sidebar.classList.add('hide');
+} else if (window.innerWidth > 576) {
+	const icon = document.querySelector('#content nav form .form-input button .bx');
+	if (icon) icon.classList.replace('bx-x', 'bx-search');
+	const form = document.querySelector('#content nav form');
+	if (form) form.classList.remove('show');
+}
+
+window.addEventListener('resize', function () {
+	if (this.innerWidth > 576) {
+		const icon = document.querySelector('#content nav form .form-input button .bx');
+		if (icon) icon.classList.replace('bx-x', 'bx-search');
+		const form = document.querySelector('#content nav form');
+		if (form) form.classList.remove('show');
+	}
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+	fetchOcrResults();
+});
+
+function fetchOcrResults() {
+	fetch('http://localhost:8081/api/ocr-results', {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json',
+		},
+		credentials: 'include'
+	})
+	.then(response => {
+		if (!response.ok) throw new Error('Erreur HTTP : ' + response.status);
+		return response.json();
+	})
+	.then(data => {
+		console.log('Résultats OCR récupérés :', data);
+		populateOcrResults(data);
+	})
+	.catch(error => {
+		console.error('Erreur lors de la récupération des résultats OCR :', error);
+	});
+}
+
+function populateOcrResults(data) {
+	const tbody = document.getElementById('historiquebody');
+	tbody.innerHTML = '';
+
+	if (!data || !data.resultats_ocr || data.resultats_ocr.length === 0) {
+		tbody.innerHTML = '<tr><td colspan="4">Aucun résultat trouvé.</td></tr>';
+		return;
+	}
+
+	data.resultats_ocr.forEach(result => {
+		const row = document.createElement('tr');
+		row.innerHTML = `
+			<td>${result.id}</td>
+			<td>${result.date_detection}</td>
+			<td>${result.user_name ? result.user_name : 'Inconnu'}</td>
+			<td>${result.matricule}</td>
+		`;
+		tbody.appendChild(row);
+	});
+}
+</script>
+
+	
+</body>
+</html>

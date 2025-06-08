@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPeage - Gérez vos trajets autoroutiers sans stress</title>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="landing-page.css">
+</head>
+<body>
+    <header>
+    <!-- HEADER -->
+        <a href="landing-page.html" class="logo">AutoPeage</a>
+        <div class="nav-buttons">
+            <a href="connexion-page.html" class="btn-espace">
+                <div class="circle-icon">
+                    <img src="images/icon monEspace.png" alt="">
+                </div>
+                Mon espace
+            </a>
+            <a href="inscription-page.html" class="btn-dark">Inscription</a>
+        </div>
+    </header>
+    <!-- HEADER -->
+
+    <!-- DESCRIPTION -->
+    <section class="hero-section">
+        <h1 class="headline">Gérez vos trajets autoroutiers sans stress.</h1>
+        <p class="subheadline">
+            Recharger votre compte, consulter vos passages et paiement en un clic.
+            Plus de ticket à attendre et à retirer ! Notre système vous offre un réel
+            gain de confort.
+        </p>
+        
+        <div class="cta">
+            <button  class="btn-dark" id="loginBtn">Se connecter</button>
+        </div>
+    <!-- AUTOROUTE -->
+        <img src="images/photo1 landing.jpg" alt="Autoroute" class="hero-image" id="autoroute-img">
+    </section>
+
+    <!-- INFOS -->
+    <section class="services-section">
+        <h2 class="section-title">Infos services</h2>
+            
+        <div class="services-grid">
+            <div class="service-card green">
+                <!-- INFO 1 -->
+                <div class="service-icon">
+                    <img src="images/photo2 landing.png" alt="">
+                </div>
+                <div>
+                    <h3 class="service-title">Suivi en temps réel des passages</h3>
+                    <p class="service-description">
+                        Gardez le contrôle total sur vos trajets et vos paiements grâce à une interface claire, accessible à tout moment. 
+                    </p>
+                </div>
+            </div>
+            
+            <div class="service-card purple">
+                <div class="service-icon">
+                    <!-- INFO 2 -->
+                    <img src="images/photo3 landing.png" alt="">
+                </div>
+                <div>
+                    <h3 class="service-title">Sécurité et accessibilité 24h/24 et 7j/7</h3>
+                    <p class="service-description">
+                        Profitez d’un accès permanent à vos informations, en toute sécurité, où que vous soyez.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="service-card yellow">
+                <div class="service-icon">
+                    <!-- INFO 3 -->
+                    <img src="images/photo4 landing.png" alt="">
+                </div>
+                <div>
+                    <h3 class="service-title">Sans engagement et sans frais de mise en service </h3>
+                    <p class="service-description">
+                        Nos services sont sans aucun frais d’activation ni de dépot de garantie
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- INSCRIPTION -->
+    <div class="signup-section">
+        <div class="signup-text">Créer votre compte maintenant!</div>
+        <div class="signup-buttons">
+            <button class="btn-dark" onclick="window.location.href='inscription-page.html'">Inscription</button>
+            <button class="btn-dark" onclick="window.location.href='connexion-page.html'">Se connecter</button>
+        </div>
+    </div>
+    
+    <!-- MORE INFOS -->
+    <section class="more-info-section">
+        <h2 class="section-title">En savoir plus</h2> 
+        
+        <div class="info-grid">
+            <div class="info-card purple">
+                <div class="info-icon">
+                    <img src="images/photo5 landing.png" alt="">
+                </div>
+                <h3 class="info-title">Classification des véhicules</h3>
+                <button class="discover-btn" onclick="window.location.href='classification-page.html'">Découvrir</button>
+            </div>
+            
+            <div class="info-card green">
+                <div class="info-icon">
+                    <img src="images/photo6 landing.png" alt="">
+                </div>
+                <h3 class="info-title">Aires de service</h3>
+                <button class="discover-btn" onclick="window.location.href='air-repos-page.html'">Découvrir</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer>
+        <div class="logoend">AutoPeage</div>
+        <p class="social-text">suivez nous sur nos réseaux sociaux</p>
+        
+        <div class="social-icons">
+            <a href="#" class="social-icon">f </a>
+            <a href="#" class="social-icon">in</a>
+            <a href="#" class="social-icon">yt</a>
+            <a href="#" class="social-icon">ig</a>
+        </div>
+        
+        <p class="copyright">Copyright © 2025 AutoPeage - All rights reserved.</p>
+    </footer>
+    
+    <script>
+    // Login button event
+    document.getElementById('loginBtn').addEventListener('click', function() {
+        window.location.href = 'connexion-page.html'; 
+    });
+
+     document.getElementById('loginBtn').addEventListener('click', function() {
+        window.location.href = 'connexion-page.html'; 
+    });
+        
+        // More info button event
+        document.getElementById('moreInfoBtn').addEventListener('click', function() {
+            alert('Plus d\'informations sur MyPeage');
+        });
+        
+        // Add interactivity to service cards
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Add interactivity to discover buttons
+        const discoverButtons = document.querySelectorAll('.discover-btn');
+        discoverButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const serviceName = this.previousElementSibling.textContent;
+                window.location.href = 'service-details.html?service=' + encodeURIComponent(serviceName);            });
+        });
+    </script>
+</body>
+</html>

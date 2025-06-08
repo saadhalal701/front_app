@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- My CSS -->
+    <link rel="stylesheet" href="dashboard-utilisateurs.css">
+
+    <title>AutoPeage - Dashboard Utilisateurs</title>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <span class="text">AutoPeage</span>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="admin-page.html">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Tableau de bord</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboard-historique.html">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text">Historique</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="dashboard-utilisateurs.html">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">Utilisateurs</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboard-stations.html">
+                    <i class='bx bxs-car'></i>
+                    <span class="text">Stations</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboard-cameras.html">
+                    <i class='bx bxs-camera'></i>
+                    <span class="text">Cameras</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="connexion-page.html" class="logout">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <header>
+                <a href="landing-page.html" class="nav-link">Home</a>
+                <button class="btn-deconnexion" onclick="window.location.href='connexion-page.html'">Deconnexion</button>
+            </header>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Utilisateurs</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Gérer les utilisateurs</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="box-info">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Rechercher par nom de station...">
+                    <button type="button" id="searchButton">
+                        <i class='bx bx-search'></i>
+                        <span>Rechercher</span>
+                    </button>
+                    <button type="button" id="resetSearch" style="display:none; margin-left: 10px;">
+                        <i class='bx bx-x'></i>
+                        <span>Réinitialiser</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Liste des utilisateurs</h3>
+                    </div>
+                    <table id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>ID utilisateur</th>
+                                <th>Date Inscription</th>
+                                <th>Nom</th>
+                                <th>Solde</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable_tbody">
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+ <script>
+    // DOM Elements
+    const sidebar = document.getElementById('sidebar');
+    const menuBar = document.querySelector('#content nav .bx.bx-menu');
+    const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const resetSearchButton = document.getElementById('resetSearch');
+    const searchForm = document.querySelector('#content nav form');
+    const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
+    const switchMode = document.getElementById('switch-mode');
+
+    // Event Listeners for Initialization
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchUsers();
+        setupEventListeners();
+        handleResponsiveLayout();
+    });
+
+    // Window Resize Listener
+    window.addEventListener('resize', handleResponsiveLayout);
+
+    // Main Function to Setup Event Listeners
+    function setupEventListeners() {
+        // Logout Buttons
+        document.querySelectorAll('.btn-deconnexion, .logout').forEach(btn => {
+            btn.addEventListener('click', () => alert('Vous avez été déconnecté'));
+        });
+
+        // Side Menu Active State
+        allSideMenu.forEach(item => {
+            item.addEventListener('click', function() {
+                allSideMenu.forEach(i => i.parentElement.classList.remove('active'));
+                this.parentElement.classList.add('active');
+            });
+        });
+
+        // Toggle Sidebar
+        menuBar.addEventListener('click', () => sidebar.classList.toggle('hide'));
+
+        // Search and Reset Button Events
+        searchButton.addEventListener('click', searchUsers);
+        resetSearchButton.addEventListener('click', handleResetSearch);
+
+        // Search on Enter key
+        searchInput.addEventListener('keyup', function(event) {
+            if (event.key === "Enter") {
+                searchUsers();
+            }
+        });
+
+        // Mobile Search Toggle
+        document.querySelector('#content nav form .form-input button').addEventListener('click', function(e) {
+            if(window.innerWidth < 576) {
+                e.preventDefault();
+                searchForm.classList.toggle('show');
+                searchButtonIcon.classList.toggle('bx-search');
+                searchButtonIcon.classList.toggle('bx-x');
+            }
+        });
+
+        // User Action Buttons (delegated event)
+        document.querySelector('#usersTable').addEventListener('click', function(e) {
+            const btn = e.target.closest('.btn-action');
+            if (!btn) return;
+            handleUserAction(btn);
+        });
+    }
+
+    // Responsive Layout Handling
+    function handleResponsiveLayout() {
+        if (window.innerWidth < 768) {
+            sidebar.classList.add('hide');
+        } else {
+            sidebar.classList.remove('hide');
+        }
+
+        if (window.innerWidth > 576) {
+            searchButtonIcon.classList.replace('bx-x', 'bx-search');
+            searchForm.classList.remove('show');
+        }
+    }
+
+    // User Management Functions
+    async function fetchUsers() {
+        try {
+            const response = await fetch('http://localhost:8081/api/users');
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const users = await response.json();
+            populateUserTable(users);
+        } catch (error) {
+            console.error('Erreur lors de la récupération des utilisateurs :', error);
+        }
+    }
+
+    function populateUserTable(users) {
+        const tbody = document.querySelector('#usersTable_tbody');
+        tbody.innerHTML = '';
+
+        users.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${user.id}</td>
+                <td>${new Date(user.created_at).toISOString().split('T')[0]}</td>
+                <td><p>${user.name}</p></td>
+                <td>${user.solde} DHS</td>
+                <td>
+                    <div class="action-buttons">
+                        <span class="status-badge ${user.status === 'active' ? 'active' : 'inactive'}">
+                            ${user.status === 'active' ? 'Actif' : 'Bloqué'}
+                        </span>
+                        <button class="btn-action ${user.status === 'active' ? 'btn-block' : 'btn-unblock'}" 
+                                title="${user.status === 'active' ? 'Bloquer' : 'Débloquer'} l'utilisateur">
+                            <i class="fas ${user.status === 'active' ? 'fa-ban' : 'fa-check'}"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function handleUserAction(button) {
+        const row = button.closest('tr');
+        const statusBadge = row.querySelector('.status-badge');
+        const isBlockAction = button.classList.contains('btn-block');
+
+        setTimeout(() => {
+            if (isBlockAction) {
+                statusBadge.textContent = 'Bloqué';
+                statusBadge.classList.replace('active', 'inactive');
+                button.innerHTML = '<i class="fas fa-check"></i>';
+                button.classList.replace('btn-block', 'btn-unblock');
+                button.title = 'Débloquer l\'utilisateur';
+            } else {
+                statusBadge.textContent = 'Actif';
+                statusBadge.classList.replace('inactive', 'active');
+                button.innerHTML = '<i class="fas fa-ban"></i>';
+                button.classList.replace('btn-unblock', 'btn-block');
+                button.title = 'Bloquer l\'utilisateur';
+            }
+        }, 300);
+    }
+
+    // Search Functions
+    function searchUsers() {
+        const filter = searchInput.value.toUpperCase();
+        const table = document.querySelector('.table-data .order table');
+        const rows = table.querySelectorAll('tr:not(:first-child)');
+        let found = false;
+
+        rows.forEach(row => {
+            const nameCell = row.querySelector('td:nth-child(3)');
+            if (nameCell) {
+                const nameText = nameCell.textContent || nameCell.innerText;
+                const match = nameText.toUpperCase().includes(filter);
+
+                row.style.display = match ? "" : "none";
+                if (match) {
+                    found = true;
+                    if (filter) {
+                        nameCell.innerHTML = highlightText(nameText, filter);
+                    }
+                }
+            }
+        });
+
+        resetSearchButton.style.display = filter ? "" : "none";
+        if (filter && !found) {
+            alert("Aucun utilisateur trouvé avec ce nom");
+        }
+    }
+
+    function highlightText(text, filter) {
+        const regex = new RegExp(filter, 'gi');
+        return text.replace(regex, match => `<span class="highlight">${match}</span>`);
+    }
+
+    function handleResetSearch() {
+        searchInput.value = "";
+        resetSearchButton.style.display = "none";
+
+        const table = document.querySelector('.table-data .order table');
+        const rows = table.querySelectorAll('tr:not(:first-child)');
+
+        rows.forEach(row => {
+            row.style.display = "";
+            const nameCell = row.querySelector('td:nth-child(3)');
+            if (nameCell) {
+                nameCell.innerHTML = nameCell.textContent;
+            }
+        });
+    }
+</script>
+
+    
+</body>
+</html>

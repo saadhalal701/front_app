@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Boxicons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- My CSS -->
+    <link rel="stylesheet" href="dashboard-stations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>AutoPeage - Dashboard Stations</title>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <section id="sidebar">
+        <a href="#" class="brand">
+            <span class="text">AutoPeage</span>
+        </a>
+        <ul class="side-menu top">
+            <li>
+                <a href="admin-page.html">
+                    <i class='bx bxs-dashboard'></i>
+                    <span class="text">Tableau de bord</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboard-historique.html">
+                    <i class='bx bxs-doughnut-chart'></i>
+                    <span class="text">Historique</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboard-utilisateurs.html">
+                    <i class='bx bxs-group'></i>
+                    <span class="text">Utilisateurs</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="dashboard-stations.html">
+                    <i class='bx bxs-car'></i>
+                    <span class="text">Stations</span>
+                </a>
+            </li>
+            <li>
+                <a href="dashboard-cameras.html">
+                    <i class='bx bxs-camera'></i>
+                    <span class="text">Cameras</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="connexion-page.html" class="logout">
+                    <i class='bx bxs-log-out-circle'></i>
+                    <span class="text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- SIDEBAR -->
+
+    <!-- CONTENT -->
+    <section id="content">
+        <!-- NAVBAR -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <header>
+                <a href="landing-page.html" class="nav-link">Home</a>
+                <button class="btn-deconnexion" onclick="window.location.href='connexion-page.html'">Deconnexion</button>
+            </header>
+        </nav>
+        <!-- NAVBAR -->
+
+        <!-- MAIN -->
+        <main>
+            <div class="head-title">
+                <div class="left">
+                    <h1>Stations</h1>
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="#">Gérer les stations</a>
+                        </li>
+                        <li><i class='bx bx-chevron-right'></i></li>
+                    </ul>
+                </div>
+                <button class="btn-add-station" onclick="openAddStationModal()">
+                    <i class='bx bx-plus'></i>
+                    <span>Ajouter une station</span>
+                </button>
+            </div>
+
+            <div class="box-info">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Rechercher par nom de station...">
+                    <button type="button" id="searchButton">
+                        <i class='bx bx-search'></i>
+                        <span>Rechercher</span>
+                    </button>
+                    <button type="button" id="resetSearch" style="display:none; margin-left: 10px;">
+                        <i class='bx bx-x'></i>
+                        <span>Réinitialiser</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-data">
+                <div class="order">
+                    <div class="head">
+                        <h3>Liste des stations</h3>
+                    </div>
+                    <table id="stationsTable">
+                        <thead>
+                            <tr>
+                                <th>ID station</th>
+                                <th>Nom</th>
+                                <th>Tarif</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                         <tbody id="stationsBody">
+    </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Modal pour ajouter une station -->
+           <div id="addStationModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeAddStationModal()">&times;</span>
+        <h2>Ajouter une nouvelle station</h2>
+        <form id="addStationForm">
+            <div class="form-group">
+                <label for="stationName">Nom de la station:</label>
+                <input type="text" id="stationName" name="nomStation" required>
+            </div>
+            <div class="form-group">
+                <label for="stationLocation">Localisation:</label>
+                <input type="text" id="stationLocation" name="localisation" required>
+            </div>
+            <div class="form-group">
+                <label for="stationTarif">Tarif (DHS):</label>
+                <input type="number" step="0.5" id="stationTarif" name="tarifStation" required>
+            </div>
+            <button type="submit" class="btn-submit">Ajouter la station</button>
+        </form>
+    </div>
+</div>
+            <!-- Modal pour éditer une station -->
+            <div id="editStationModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeEditStationModal()">&times;</span>
+                    <h2>Modifier la station</h2>
+                    <form id="editStationForm">
+                        <div class="form-group">
+                            <label for="editStationName">Nom de la station:</label>
+                            <input type="text" id="editStationName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editStationTarif">Tarif (DHS):</label>
+                            <input type="number" id="editStationTarif" required>
+                        </div>
+                        <button type="submit" class="btn-submit">Enregistrer</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <!-- MAIN -->
+    </section>
+    <!-- CONTENT -->
+
+    <script>
+        // Variables globales
+        let lastStationId = 5;
+        let currentEditingRow = null;
+
+        // Fonctions pour les modals
+        function openAddStationModal() {
+            document.getElementById('addStationModal').style.display = 'block';
+        }
+
+        function closeAddStationModal() {
+            document.getElementById('addStationModal').style.display = 'none';
+        }
+
+        function openEditStationModal(row) {
+            currentEditingRow = row;
+            const stationName = row.cells[1].textContent;
+            const stationTarif = row.cells[2].textContent.replace(' DHS', '');
+            
+            document.getElementById('editStationName').value = stationName;
+            document.getElementById('editStationTarif').value = stationTarif;
+            document.getElementById('editStationModal').style.display = 'block';
+        }
+
+        function closeEditStationModal() {
+            document.getElementById('editStationModal').style.display = 'none';
+        }
+
+        // Fonction pour supprimer une station
+        function deleteStation(row) {
+            if(confirm('Êtes-vous sûr de vouloir supprimer cette station?')) {
+                row.remove();
+                alert('Station supprimée avec succès!');
+            }
+        }
+
+        // Fonction de recherche 
+function searchStations() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toUpperCase();
+    const table = document.querySelector('.table-data .order table'); 
+    const tr = table.getElementsByTagName('tr');
+    const resetBtn = document.getElementById('resetSearch');
+    let found = false;
+
+    // Parcourir toutes les lignes du tableau (sauf l'en-tête)
+    for (let i = 1; i < tr.length; i++) {
+        const td = tr[i].getElementsByTagName('td')[1]; // Colonne du nom
+        if (td) {
+            const txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().includes(filter)) {
+                tr[i].style.display = "";
+                found = true;
+                
+                // Mise en évidence du texte trouvé
+                if (filter.length > 0) {
+                    const regex = new RegExp(filter, 'gi');
+                    td.innerHTML = txtValue.replace(regex, match => `<span class="highlight">${match}</span>`);
+                }
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+
+    // Afficher/masquer le bouton de réinitialisation
+    resetBtn.style.display = filter.length > 0 ? "" : "none";
+    if (filter.length > 0 && !found) {
+        alert("Aucune station trouvée avec ce nom");
+    }
+}
+
+// Réinitialiser la recherche
+function resetSearch() {
+    const input = document.getElementById('searchInput');
+    input.value = "";
+    document.getElementById('resetSearch').style.display = "none";
+    
+    const table = document.querySelector('.table-data .order table');
+    const tr = table.getElementsByTagName('tr');
+    
+    // Afficher toutes les lignes et retirer les surlignages
+    for (let i = 1; i < tr.length; i++) {
+        tr[i].style.display = "";
+        const td = tr[i].getElementsByTagName('td')[1];
+        if (td) {
+            td.innerHTML = td.textContent; // Retire les balises de surlignage
+        }
+    }
+}
+        // Écouteurs d'événements pour la recherche
+        document.getElementById('searchButton').addEventListener('click', searchStations);
+        document.getElementById('resetSearch').addEventListener('click', resetSearch);
+        
+        // Recherche lors de la touche Entrée
+        document.getElementById('searchInput').addEventListener('keyup', function(event) {
+            if (event.key === "Enter") {
+                searchStations();
+            }
+        });
+
+        // Gestion du formulaire d'ajout
+       // Gestion du formulaire d'ajout
+        document.addEventListener("DOMContentLoaded", function () {
+        fetchStations();
+    });
+
+    function fetchStations() {
+        fetch('http://localhost:8081/api/stations') // Adjust URL if needed
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById("stationsBody");
+                tbody.innerHTML = "";
+
+                data.forEach((station) => {
+                    const tr = document.createElement("tr");
+                    tr.innerHTML = `
+                        <td>${station.idstation}</td>
+                        <td>${station.nomStation}</td>
+                        <td>${station.tarifStation} DHS</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-action btn-edit" title="Modifier la station" onclick="openEditStationModal(${station.id})">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn-action btn-delete" title="Supprimer la station" onclick="deleteStation(${station.id})">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(error => console.error('Erreur lors du chargement des stations:', error));
+    }
+document.getElementById('addStationForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = {
+        nomStation: document.getElementById('stationName').value,
+        localisation: document.getElementById('stationLocation').value,
+        tarifStation: parseFloat(document.getElementById('stationTarif').value)
+    };
+
+    try {
+        const response = await fetch('http://localhost:8081/api/stations', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de l\'ajout de la station');
+        }
+
+        const data = await response.json();
+        
+        // Add the new station to the table
+        const tableBody = document.querySelector('#stationsTable tbody');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            
+            <td>${formData.id}</td>
+            <td>${data.localisation}</td>
+            <td>${formData.tarifStation} DHS</td>
+            <td>
+                <div class="action-buttons">
+                    <button class="btn-action btn-edit" title="Modifier la station" onclick="openEditStationModal(this.closest('tr'))">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-action btn-delete" title="Supprimer la station" onclick="deleteStation(this.closest('tr'))">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </td>
+        `;
+        
+        tableBody.appendChild(newRow);
+        closeAddStationModal();
+        this.reset();
+        alert('Station ajoutée avec succès!');
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Erreur lors de l\'ajout de la station: ' + error.message);
+    }
+    
+});
+
+        // Gestion du formulaire d'édition
+        document.getElementById('editStationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newName = document.getElementById('editStationName').value;
+            const newTarif = document.getElementById('editStationTarif').value + " DHS";
+            
+            if (currentEditingRow) {
+                currentEditingRow.cells[1].textContent = newName;
+                currentEditingRow.cells[2].textContent = newTarif;
+                alert("Station modifiée avec succès !");
+                closeEditStationModal();
+            }
+        });
+
+        // Gestion de la sidebar
+        const menuBar = document.querySelector('#content nav .bx.bx-menu');
+        const sidebar = document.getElementById('sidebar');
+
+        menuBar.addEventListener('click', function () {
+            sidebar.classList.toggle('hide');
+        });
+
+        // Gestion de la déconnexion
+        document.querySelector('.btn-deconnexion').addEventListener('click', function() {
+            alert('Vous avez été déconnecté');
+        });
+
+        document.querySelector('.logout').addEventListener('click', function() {
+            alert('Vous avez été déconnecté');
+        });
+
+        // Fermer les modals si on clique en dehors
+        window.addEventListener('click', function(event) {
+            const addModal = document.getElementById('addStationModal');
+            const editModal = document.getElementById('editStationModal');
+            
+            if (event.target === addModal) {
+                closeAddStationModal();
+            }
+            if (event.target === editModal) {
+                closeEditStationModal();
+            }
+        });
+
+        // Gestion du menu actif
+        const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
+        allSideMenu.forEach(item => {
+            const li = item.parentElement;
+            item.addEventListener('click', function () {
+                allSideMenu.forEach(i => {
+                    i.parentElement.classList.remove('active');
+                })
+                li.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
