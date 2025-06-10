@@ -74,73 +74,60 @@
     </footer>
 
     <script>
-        // Fonction pour ajouter une nouvelle transaction
-        const token = localStorage.getItem('token');
-        function addTransaction(numero, date, montant, plaque) {
-            const table = document.getElementById('transactionsTable').getElementsByTagName('tbody')[0];
-            const newRow = table.insertRow();
-            
-            const cell1 = newRow.insertCell(0);
-            const cell2 = newRow.insertCell(1);
-            const cell3 = newRow.insertCell(2);
-            const cell4 = newRow.insertCell(3);
-            
-            cell1.textContent = numero;
-            cell2.textContent = date;
-            cell3.textContent = montant;
-            cell4.textContent = plaque;
-        }
-        
-        // Gestionnaire d'événement pour le bouton de déconnexion
-        document.querySelector('.logout-btn').addEventListener('click', function() {
-            alert('Vous avez été déconnecté');
-            
-        });
-        if (token) {
-    fetch('http://localhost:8081/api/user/paiements', {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erreur lors de la récupération des paiements');
-        }
-        return response.json();
-    })
-    .then(data => {
-        const paiements = data.paiements;
-        const tableBody = document.getElementById('paiementsBody');
-        tableBody.innerHTML = ''; // Vider le tableau avant de l'afficher
+         const token = localStorage.getItem('token');
 
-        paiements.forEach(paiement => {
-            const row = document.createElement('tr');
-
-            const dateCell = document.createElement('td');
-            dateCell.textContent = paiement.created_at.substring(0, 10); // ou autre champ date
-
-            const idCell = document.createElement('td');
-            idCell.textContent = paiement.id;
-
-            const montantCell = document.createElement('td');
-            montantCell.textContent = paiement.montant + ' DHS';
-
-            row.appendChild(dateCell);
-            row.appendChild(idCell);
-            row.appendChild(montantCell);
-
-            tableBody.appendChild(row);
-        });
-    })
-    .catch(error => {
-        console.error('Erreur :', error.message);
+    // Déconnexion
+    document.querySelector('.logout-btn').addEventListener('click', function() {
+        alert('Vous avez été déconnecté');
+        localStorage.removeItem('token');
+        window.location.href = "connexion-page.html";
     });
-} else {
-    alert("Utilisateur non connecté. Veuillez vous reconnecter.");
-    window.location.href = "connexion-page.html";
-}
+
+    // Fetch paiements
+    if (token) {
+        fetch('http://localhost:8081/api/paiements', {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la récupération des paiements');
+            }
+            return response.json();
+        })
+        .then(paiements => {
+            const tableBody = document.getElementById('paiementsBody');
+            tableBody.innerHTML = '';
+
+            paiements.forEach(paiement => {
+                const row = document.createElement('tr');
+
+                const dateCell = document.createElement('td');
+                dateCell.textContent = paiement.created_at.substring(0, 10);
+
+                const idCell = document.createElement('td');
+                idCell.textContent = paiement.id;
+
+                const montantCell = document.createElement('td');
+                montantCell.textContent = paiement.montant + ' DHS';
+
+                row.appendChild(dateCell);
+                row.appendChild(idCell);
+                row.appendChild(montantCell);
+
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => {
+            console.error('Erreur :', error.message);
+        });
+    } else {
+        alert("Utilisateur non connecté. Veuillez vous reconnecter.");
+        window.location.href = "connexion-page.html";
+    }
         </script>
 </body>
 </html>

@@ -210,7 +210,7 @@
             searchForm.classList.remove('show');
         }
     }
-
+const userId = btn.dataset.id;
     // User Management Functions
     async function fetchUsers() {
         try {
@@ -229,20 +229,16 @@
 
         users.forEach(user => {
             const row = document.createElement('tr');
+             row.id = `user-row-${user.id}`;
             row.innerHTML = `
                 <td>${user.id}</td>
                 <td>${new Date(user.created_at).toISOString().split('T')[0]}</td>
                 <td><p>${user.name}</p></td>
                 <td>${user.solde} DHS</td>
                 <td>
-                    <div class="action-buttons">
-                        <span class="status-badge ${user.status === 'active' ? 'active' : 'inactive'}">
-                            ${user.status === 'active' ? 'Actif' : 'Bloqué'}
-                        </span>
-                        <button class="btn-action ${user.status === 'active' ? 'btn-block' : 'btn-unblock'}" 
-                                title="${user.status === 'active' ? 'Bloquer' : 'Débloquer'} l'utilisateur">
-                            <i class="fas ${user.status === 'active' ? 'fa-ban' : 'fa-check'}"></i>
-                        </button>
+                   <div class="action-buttons">
+               
+                <button class="status-badge" onclick="supprimerUtilisateur(${user.id})">Bloquer</button>
                     </div>
                 </td>
             `;
@@ -321,6 +317,33 @@
             }
         });
     }
+    function supprimerUtilisateur(userId) {
+    if (!confirm("Es-tu sûr de vouloir supprimer cet utilisateur ?")) {
+        return;
+    }
+
+    fetch(`http://localhost:8081/api/users/${userId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message === 'User deleted successfully') {
+            alert("Utilisateur supprimé avec succès.");
+            // Supprime l'élément de la table ou recharge la liste
+            document.getElementById(`user-row-${userId}`).remove();
+        } else {
+            alert("Erreur : " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Erreur lors de la suppression :', error);
+        alert("Une erreur s'est produite.");
+    });
+}
+
 </script>
 
     
